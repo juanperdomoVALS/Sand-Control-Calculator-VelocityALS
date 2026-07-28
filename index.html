@@ -6,6 +6,7 @@
 <title>Sand Control Calculator — Velocity ALS</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;color:#1a1a1a;font-size:17px}
 
 /* HEADER */
@@ -19,7 +20,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;color:#1a1a1a;fo
 /* CONTENT */
 .content{max-width:1400px;margin:0 auto;padding:24px 32px}
 
-.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:2rem 2.25rem;margin-bottom:18px;box-shadow:0 2px 6px rgba(0,0,0,0.07)}
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:2rem 2.5rem;margin-bottom:18px;box-shadow:0 2px 6px rgba(0,0,0,0.07)}
 .mod-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:12px;padding:7px 12px;border-radius:6px;letter-spacing:0.03em;text-transform:uppercase}
 .mod-title.orange{background:#f15a24}
 .mod-title.dark{background:#1a1a1a}
@@ -29,15 +30,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;color:#1a1a1a;fo
 .grid2r{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 
 /* PARAMS */
-.prow{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f0f0f0;gap:8px}
+.prow{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f0f0f0;gap:8px}
 .prow:last-child{border-bottom:none}
-.plbl{font-size:12px;color:#555;flex:1;cursor:pointer;border-radius:4px;padding:1px 3px}
+.plbl{font-size:1rem;color:#555;flex:1;cursor:pointer;border-radius:4px;padding:1px 3px}
 .plbl:hover{background:#fef3ee;color:#f15a24}
 .plbl[contenteditable=true]{background:#fef3ee;color:#1a1a1a;outline:1.5px solid #f15a24;border-radius:4px;padding:1px 4px}
-.punit{font-size:11px;color:#888;min-width:28px;text-align:right;cursor:pointer;border-radius:3px;padding:1px 3px}
+.punit{font-size:0.85rem;color:#888;min-width:28px;text-align:right;cursor:pointer;border-radius:3px;padding:1px 3px}
 .punit:hover{background:#fef3ee}
 .punit[contenteditable=true]{background:#fef3ee;outline:1.5px solid #f15a24}
-input.pval{font-size:14px;font-weight:600;color:#1a1a1a;text-align:right;background:#f9f9f9;border:1.5px solid #ddd;border-radius:7px;padding:5px 10px;width:130px;outline:none;transition:border-color 0.2s}
+input.pval{font-size:1.05rem;font-weight:600;color:#1a1a1a;text-align:right;background:#f9f9f9;border:1.5px solid #ddd;border-radius:10px;padding:8px 14px;width:150px;outline:none;transition:border-color 0.2s}
 input.pval:focus{border-color:#f15a24;background:#fff}
 
 .section-sep{font-size:10px;font-weight:700;color:#f15a24;text-transform:uppercase;letter-spacing:.06em;padding:5px 0 3px}
@@ -52,7 +53,7 @@ input.pval:focus{border-color:#f15a24;background:#fff}
 .res-unit{font-size:13px;color:#888;cursor:pointer;border-radius:3px;padding:1px 3px}
 .res-unit:hover{background:#f0f0f0}
 .res-unit[contenteditable=true]{outline:1.5px solid #f15a24}
-.res-sub{font-size:11px;color:#aaa;margin-top:3px}
+.res-sub{font-size:4.5rem;color:#aaa;margin-top:3px}
 
 .div{border:none;border-top:1px solid #eee;margin:10px 0}
 
