@@ -97,15 +97,15 @@ input.pval:focus{border-color:#f15a24;background:#fff}
   <div class="grid2">
     <div>
       <div class="section-sep">Fluid Properties</div>
-      <div class="prow"><span class="plbl">Oil Viscosity @ BHT</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="muo" type="number" value="235" min="1" max="10000" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">cp</span></div></div>
-      <div class="prow"><span class="plbl">Water Cut</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="bsw" type="number" value="70" min="0" max="100" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">%</span></div></div>
-      <div class="prow"><span class="plbl">Bottom Hole Temperature</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="T" type="number" value="185" min="50" max="300" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">°F</span></div></div>
+      <div class="prow"><span class="plbl">Oil Viscosity @ BHT</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="muo" type="number" value="235" min="1" max="10000" step="1" oninput="upd()"><span class="punit">cp</span></div></div>
+      <div class="prow"><span class="plbl">Water Cut</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="bsw" type="number" value="70" min="0" max="100" step="1" oninput="upd()"><span class="punit">%</span></div></div>
+      <div class="prow"><span class="plbl">Bottom Hole Temperature</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="T" type="number" value="185" min="50" max="300" step="1" oninput="upd()"><span class="punit">°F</span></div></div>
     </div>
     <div>
       <div class="section-sep">Sand Properties</div>
-      <div class="prow"><span class="plbl">Sand Density</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="rhos" type="number" value="2650" min="2400" max="2800" step="10" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">kg/m³</span></div></div>
-      <div class="prow"><span class="plbl">Dominant Particle Diameter</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="dp" type="number" value="177" min="1" max="2000" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">µm</span></div></div>
-      <div class="prow"><span class="plbl">Sand Concentration in Produced Fluid</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="conc" type="number" value="500" min="0" max="50000" step="10" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">mg/L</span></div></div>
+      <div class="prow"><span class="plbl">Sand Density</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="rhos" type="number" value="2650" min="2400" max="2800" step="10" oninput="upd()"><span class="punit">kg/m³</span></div></div>
+      <div class="prow"><span class="plbl">Dominant Particle Diameter</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="dp" type="number" value="177" min="1" max="2000" step="1" oninput="upd()"><span class="punit">µm</span></div></div>
+      <div class="prow"><span class="plbl">Sand Concentration in Produced Fluid</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="conc" type="number" value="500" min="0" max="50000" step="10" oninput="upd()"><span class="punit">mg/L</span></div></div>
     </div>
   </div>
 </div>
@@ -115,10 +115,10 @@ input.pval:focus{border-color:#f15a24;background:#fff}
   <div class="mod-title orange">② Settling Velocity Along the Production Tubing Column to the ESP Discharge</div>
   <div class="grid2">
     <div>
-      <div class="prow"><span class="plbl">Production Tubing ID</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="idp" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">in</span></div></div>
+      <div class="prow"><span class="plbl">Production Tubing ID</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="idp" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="punit">in</span></div></div>
     </div>
     <div>
-      <div class="prow"><span class="plbl">ESP Discharge Depth</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="lp" type="number" value="2000" min="0" max="10000" step="10" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">ft</span></div></div>
+      <div class="prow"><span class="plbl">ESP Discharge Depth</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="lp" type="number" value="2000" min="0" max="10000" step="10" oninput="upd()"><span class="punit">ft</span></div></div>
     </div>
   </div>
   <div class="div"></div>
@@ -144,17 +144,17 @@ input.pval:focus{border-color:#f15a24;background:#fff}
   <div class="grid2">
     <div>
       <div class="section-sep">Sand Control</div>
-      <div class="prow"><span class="plbl">Sand Control System ID</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="idc" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">in</span></div></div>
-      <div class="prow"><span class="plbl">Settling Fluid Column (ESP Intake to Tubing Joints)</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="lc" type="number" value="120" min="0" max="1000" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">ft</span></div></div>
+      <div class="prow"><span class="plbl">Sand Control System ID</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="idc" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="punit">in</span></div></div>
+      <div class="prow"><span class="plbl">Settling Fluid Column (ESP Intake to Tubing Joints)</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="lc" type="number" value="120" min="0" max="1000" step="1" oninput="upd()"><span class="punit">ft</span></div></div>
       <div class="section-sep" style="margin-top:6px">Tubing Joints</div>
-      <div class="prow"><span class="plbl">Internal Diameter (ID)</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="ids" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">in</span></div></div>
-      <div class="prow"><span class="plbl">Total Length</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="ls" type="number" value="30" min="0" max="500" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">ft</span></div></div>
-      <div class="prow"><span class="plbl">Bulk Sand Density</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="rb" type="number" value="1300" min="500" max="2000" step="10" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">kg/m³</span></div></div>
+      <div class="prow"><span class="plbl">Internal Diameter (ID)</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="ids" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="punit">in</span></div></div>
+      <div class="prow"><span class="plbl">Total Length</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="ls" type="number" value="30" min="0" max="500" step="1" oninput="upd()"><span class="punit">ft</span></div></div>
+      <div class="prow"><span class="plbl">Bulk Sand Density</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="rb" type="number" value="1300" min="500" max="2000" step="10" oninput="upd()"><span class="punit">kg/m³</span></div></div>
     </div>
     <div>
       <div class="section-sep">Operation</div>
-      <div class="prow"><span class="plbl">Average Shutdown Duration</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="tp" type="number" value="4" min="0" max="720" step="0.5" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">h</span></div></div>
-      <div class="prow"><span class="plbl">Shutdown Frequency</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="fp" type="number" value="4" min="0" max="120" step="1" oninput="upd()"><span class="punit" ondblclick="makeEdit(this)">paros/mes</span></div></div>
+      <div class="prow"><span class="plbl">Average Shutdown Duration</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="tp" type="number" value="4" min="0" max="720" step="0.5" oninput="upd()"><span class="punit">hours</span></div></div>
+      <div class="prow"><span class="plbl">Shutdown Frequency</span><div style="display:flex;align-items:center;gap:5px"><input class="pval" id="fp" type="number" value="4" min="0" max="120" step="1" oninput="upd()"><span class="punit">#/mes</span></div></div>
     </div>
   </div>
   <div class="div"></div>
