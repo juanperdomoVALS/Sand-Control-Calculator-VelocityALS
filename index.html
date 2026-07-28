@@ -225,13 +225,7 @@ function upd(){
   document.getElementById('r-sfb-min').textContent=isFinite(t_min)?fmtBig(t_min,0):'∞';
   document.getElementById('r-sfb-hr-sub').textContent=isFinite(t_min)?'= '+fmtBig(t_min,0)+' min':'';
   document.getElementById('r-sfb-min-sub').textContent=isFinite(t_hr)?'= '+fmtBig(t_hr,2)+' h':'';
-  var sfbAl=document.getElementById('r-sfb-alert');
-  if(lp===0){sfbAl.className='wb wa';sfbAl.innerHTML='<b>Longitud = 0 ft.</b> Ingrese la profundidad de la ESP o el nivel dinámico.';}
-  else if(!isFinite(t_min)||t_min<1){sfbAl.className='wb wr';sfbAl.innerHTML='<b>⚠ Crítico:</b> arena alcanza el intake en menos de 1 min. Sand Lift y check valve son imprescindibles.';}
-  else if(t_min<60){sfbAl.className='wb wr';sfbAl.innerHTML='<b>⚠ Sandfallback alto:</b> caída en '+fmt(t_min,0)+' min. Ventana de rearranque muy ajustada.';}
-  else if(t_hr<24){sfbAl.className='wb wa';sfbAl.innerHTML='<b>Precaución:</b> caída en '+fmt(t_hr,1)+' h. Se recomienda Sand Lift.';}
-  else{sfbAl.className='wb wg';sfbAl.innerHTML='<b>✓ Condición favorable:</b> caída en '+fmt(t_hr,1)+' h. La viscosidad protege la ESP. Ventana operacional amplia.';}
-  // Módulo 3
+   // Módulo 3
   var A_c=Math.PI/4*Math.pow(idc*0.0254,2);
   var V_lt=A_c*lc_m*1000;
   var A_s=Math.PI/4*Math.pow(ids*0.0254,2);
@@ -252,13 +246,7 @@ function upd(){
   document.getElementById('r-sp-dia').textContent=isFinite(t_dias)?fmtBig(t_dias,0):'∞';
   document.getElementById('r-sp-mes-sub').textContent=isFinite(t_dias)?'= '+fmtBig(t_dias,0)+' días':'';
   document.getElementById('r-sp-dia-sub').textContent=isFinite(t_meses)?'= '+fmtBig(t_meses,1)+' meses':'';
-  var spAl=document.getElementById('r-sp-alert');
-  if(fp===0||conc===0||tp===0){spAl.className='wb wa';spAl.innerHTML='<b>Defina paros, concentración y tiempo de paro</b> para calcular el llenado del sump.';}
-  else if(!isFinite(t_meses)||t_meses<1){spAl.className='wb wr';spAl.innerHTML='<b>⚠ Crítico:</b> sump se llena en menos de 1 mes ('+fmt(n_lleno,0)+' paros). Aumentar longitud del sump.';}
-  else if(t_meses<3){spAl.className='wb wr';spAl.innerHTML='<b>⚠ Crítico:</b> sump se llena en '+fmt(t_dias,0)+' días ('+fmt(n_lleno,0)+' paros). Revisar longitud del sump.';}
-  else if(t_meses<12){spAl.className='wb wa';spAl.innerHTML='<b>Precaución:</b> sump se llena en ~'+fmt(t_meses,1)+' meses ('+fmt(n_lleno,0)+' paros). Considerar aumentar longitud del sump.';}
-  else{spAl.className='wb wg';spAl.innerHTML='<b>✓ Sump adecuado:</b> f̄_dec='+fmt(fdec_p*100,1)+'% · aguanta <b>'+fmt(t_meses,1)+' meses</b> ('+fmt(n_lleno,0)+' paros).';}
-}
+ }
 function getFullHTML(){
   var html=document.documentElement.outerHTML;
   var inputs=document.querySelectorAll('input.pval');
