@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sand Control Calculator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--text-primary);background:transparent;padding:12px 0}
+h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.card{background:var(--surface-2);border:0.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px}
+.mt{font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:12px;padding:6px 10px;background:var(--surface-1);border-radius:var(--radius)}
+.mt.blue{border-left:3px solid #185FA5}
+.mt.orange{border-left:3px solid #eb6834}
+.mt.teal{border-left:3px solid #1D9E75}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2r{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prow{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--border);gap:6px}
+.prow:last-child{border-bottom:none}
+/* Etiqueta editable */
+.elbl{font-size:12px;color:var(--text-secondary);flex:1;cursor:pointer;border-radius:4px;padding:1px 3px;min-width:0;word-break:break-word}
+.elbl:hover{background:var(--surface-1);color:var(--text-primary)}
+.elbl[contenteditable=true]{background:var(--surface-1);color:var(--text-primary);outline:1px solid #185FA5;border-radius:4px;padding:1px 4px}
+.etip{font-size:10px;color:var(--text-secondary);margin-bottom:8px;opacity:0.7}
+.punit-wrap{display:flex;align-items:center;gap:4px}
+.punit{font-size:11px;color:var(--text-secondary);min-width:28px;text-align:right}
+/* Unidad editable */
+.eunit{font-size:11px;color:var(--text-secondary);cursor:pointer;border-radius:3px;padding:1px 3px;text-align:right;min-width:28px}
+.eunit:hover{background:var(--surface-1)}
+.eunit[contenteditable=true]{background:var(--surface-1);outline:1px solid #185FA5}
+input.pval{font-size:13px;font-weight:500;color:var(--text-primary);text-align:right;background:var(--surface-1);border:0.5px solid var(--border);border-radius:6px;padding:3px 8px;width:95px;outline:none}
+input.pval:focus{border-color:#185FA5;background:var(--surface-2)}
+.res-block{border-radius:12px;padding:1rem 1.1rem;text-align:center}
+.res-blue{background:var(--surface-1);border:1px solid #85B7EB}
+.res-teal{background:var(--surface-1);border:1px solid #5BAD8F}
+.res-lbl{font-size:11px;color:var(--text-secondary);margin-bottom:2px;cursor:pointer;border-radius:3px;padding:1px 3px}
+.res-lbl:hover{background:var(--surface-2)}
+.res-lbl[contenteditable=true]{outline:1px solid #185FA5;background:var(--surface-2)}
+.res-num{font-size:38px;font-weight:500;line-height:1.1;margin-bottom:2px}
+.res-num.blue{color:#0C447C}
+.res-num.teal{color:#0A5C3E}
+.res-unit{font-size:13px;color:var(--text-secondary);cursor:pointer;border-radius:3px;padding:1px 3px}
+.res-unit:hover{background:var(--surface-2)}
+.res-unit[contenteditable=true]{outline:1px solid #185FA5}
+.res-sub{font-size:11px;color:var(--text-secondary);margin-top:3px}
+.div{border:none;border-top:0.5px solid var(--border);margin:10px 0}
+.wb{border-radius:var(--radius);padding:.65rem 1rem;font-size:12.5px;line-height:1.6;margin-top:12px}
+.wg{background:#EAF3DE;color:#27500A;border:0.5px solid #97C459}
+.wa{background:#FAEEDA;color:#633806;border:0.5px solid #EF9F27}
+.wr{background:#FCEBEB;color:#501313;border:0.5px solid #F09595}
+.section-sep{font-size:11px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;padding:6px 0 3px}
+.export-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.btn{font-size:12px;padding:6px 14px;border-radius:var(--radius);border:0.5px solid var(--border);cursor:pointer;background:var(--surface-1);color:var(--text-primary);font-family:inherit}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:#185FA5;color:#fff;border-color:#185FA5}
+.btn.primary:hover{background:#0C447C}
+.btn-tip{font-size:11px;color:var(--text-secondary)}
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">Calculadora de sandfallback y llenado de sump con etiquetas editables y exportación HTML</h2>
+
+<!-- BARRA EXPORTACIÓN -->
+<div class="card" style="padding:.75rem 1.25rem">
+  <div class="export-bar">
+    <button class="btn primary" onclick="exportHTML()">⬇ Descargar como HTML</button>
+    <button class="btn" onclick="copyHTML()">📋 Copiar HTML</button>
+    <span class="btn-tip">El archivo HTML descargado funciona sin internet y se puede compartir o abrir en cualquier navegador.</span>
+  </div>
+  <div class="etip">💡 Doble clic sobre cualquier nombre de variable o unidad para editarlo directamente.</div>
+</div>
+
+<!-- MÓDULO 1 -->
+<div class="card" id="mod1">
+  <div class="mt blue">① Parámetros globales del fluido y arena</div>
+  <div class="grid2">
+    <div>
+      <div class="section-sep">Fluido</div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Viscosidad crudo @ BHT</span><div class="punit-wrap"><input class="pval" id="muo" value="235" type="number" value="235" min="1" max="10000" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">cp</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">BSW</span><div class="punit-wrap"><input class="pval" id="bsw" value="70" type="number" value="70" min="0" max="100" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">%</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Temperatura fondo</span><div class="punit-wrap"><input class="pval" id="T" value="185" type="number" value="185" min="50" max="300" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">°F</span></div></div>
+    </div>
+    <div>
+      <div class="section-sep">Arena</div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Densidad arena sólida</span><div class="punit-wrap"><input class="pval" id="rhos" value="2650" type="number" value="2650" min="2400" max="2800" step="10" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">kg/m³</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Diámetro partícula análisis</span><div class="punit-wrap"><input class="pval" id="dp" value="177" type="number" value="177" min="1" max="2000" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">µm</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Concentración finos en fluido</span><div class="punit-wrap"><input class="pval" id="conc" value="500" type="number" value="500" min="0" max="50000" step="10" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">mg/L</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MÓDULO 2 -->
+<div class="card" id="mod2">
+  <div class="mt orange">② Sandfallback — columna de producción</div>
+  <div class="grid2">
+    <div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">ID tubing producción</span><div class="punit-wrap"><input class="pval" id="idp" value="3.826" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">in</span></div></div>
+    </div>
+    <div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Longitud columna producción</span><div class="punit-wrap"><input class="pval" id="lp" value="2000" type="number" value="2000" min="0" max="10000" step="10" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">ft</span></div></div>
+    </div>
+  </div>
+  <div class="div"></div>
+  <div class="grid2r">
+    <div class="res-block res-blue">
+      <div class="res-lbl" ondblclick="makeEdit(this)">Tiempo de caída completa</div>
+      <div class="res-num blue" id="r-sfb-hr">16.1</div>
+      <div class="res-unit" ondblclick="makeEdit(this)">horas</div>
+      <div class="res-sub" id="r-sfb-hr-sub">= 967 min</div>
+    </div>
+    <div class="res-block res-blue">
+      <div class="res-lbl" ondblclick="makeEdit(this)">Tiempo de caída completa</div>
+      <div class="res-num blue" id="r-sfb-min">967</div>
+      <div class="res-unit" ondblclick="makeEdit(this)">minutos</div>
+      <div class="res-sub" id="r-sfb-min-sub">= 16.12 h</div>
+    </div>
+  </div>
+  <div id="r-sfb-alert" class="wb wa"><b>Precaución:</b> caída completa en 16.1 h. Se recomienda Sand Lift.</div>
+</div>
+
+<!-- MÓDULO 3 -->
+<div class="card" id="mod3">
+  <div class="mt teal">③ Llenado de juntas de almacenamiento (sump)</div>
+  <div class="grid2">
+    <div>
+      <div class="section-sep">Columna de control de arena</div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">ID tubing control arena</span><div class="punit-wrap"><input class="pval" id="idc" value="3.826" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">in</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Longitud columna control arena</span><div class="punit-wrap"><input class="pval" id="lc" value="120" type="number" value="120" min="0" max="1000" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">ft</span></div></div>
+      <div class="section-sep" style="margin-top:6px">Sump</div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">ID tubería sump</span><div class="punit-wrap"><input class="pval" id="ids" value="3.826" type="number" value="3.826" min="0.5" max="12" step="0.001" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">in</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Longitud total sump</span><div class="punit-wrap"><input class="pval" id="ls" value="30" type="number" value="30" min="0" max="500" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">ft</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Densidad bulk finos</span><div class="punit-wrap"><input class="pval" id="rb" value="1300" type="number" value="1300" min="500" max="2000" step="10" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">kg/m³</span></div></div>
+    </div>
+    <div>
+      <div class="section-sep">Operación</div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Duración promedio del paro</span><div class="punit-wrap"><input class="pval" id="tp" value="4" type="number" value="4" min="0" max="720" step="0.5" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">h</span></div></div>
+      <div class="prow"><span class="elbl" ondblclick="makeEdit(this)">Frecuencia de paros</span><div class="punit-wrap"><input class="pval" id="fp" value="4" type="number" value="4" min="0" max="120" step="1" oninput="upd()"><span class="eunit" ondblclick="makeEdit(this)">paros/mes</span></div></div>
+    </div>
+  </div>
+  <div class="div"></div>
+  <div class="grid2r">
+    <div class="res-block res-teal">
+      <div class="res-lbl" ondblclick="makeEdit(this)">Tiempo llenado sump</div>
+      <div class="res-num teal" id="r-sp-mes">177.3</div>
+      <div class="res-unit" ondblclick="makeEdit(this)">meses</div>
+      <div class="res-sub" id="r-sp-mes-sub">= 5395 días</div>
+    </div>
+    <div class="res-block res-teal">
+      <div class="res-lbl" ondblclick="makeEdit(this)">Tiempo llenado sump</div>
+      <div class="res-num teal" id="r-sp-dia">5395</div>
+      <div class="res-unit" ondblclick="makeEdit(this)">días</div>
+      <div class="res-sub" id="r-sp-dia-sub">= 177.3 meses</div>
+    </div>
+  </div>
+  <div id="r-sp-alert" class="wb wg"><b>✓ Sump adecuado:</b> f̄_dec=91.7% · aguanta <b>177.3 meses</b> (709 paros).</div>
+</div>
+
+<script>
+var GRANOS=[
+  {um:177,psd:57.82},{um:149,psd:16.85},{um:125,psd:11.10},
+  {um:53, psd:14.03},{um:37, psd:0.18}, {um:20, psd:0.04}
+];
+
+function muWater(Tf){var Tc=(Tf-32)*5/9;return 2.414e-5*Math.pow(10,247.8/(Tc+133.15))*1000;}
+function muMix(muO,muW,bsw){var fw=bsw/100,fo=1-fw;return Math.exp(fo*Math.log(Math.max(muO,0.5))+fw*Math.log(muW));}
+function rhoFluid(bsw){return (1-bsw/100)*(141.5/(10+131.5)*1000)+(bsw/100)*1010;}
+function vsCalc(dp_m,rhos,rhof,mu_Pas){
+  var g=9.81,dr=rhos-rhof,mu=Math.max(mu_Pas,1e-6),vs=dr*g*dp_m*dp_m/(18*mu);
+  for(var i=0;i<60;i++){
+    var Re=rhof*Math.abs(vs)*dp_m/mu;
+    var Cd=Re<0.1?24/Re:Re<1000?(24/Re)*(1+0.15*Math.pow(Re,0.687)):0.44;
+    var vn=Math.sqrt(4*dr*g*dp_m/(3*Cd*rhof));
+    if(Math.abs(vn-vs)<1e-10) break;
+    vs=(vs+vn)/2;
+  }
+  return vs;
+}
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmt(n,d){return(!isFinite(n)||isNaN(n))?'—':n.toFixed(d);}
+function fmtBig(n,d){if(!isFinite(n)||isNaN(n))return'—';if(n>99999)return'>99,999';return n.toFixed(d);}
+
+// Hacer etiqueta editable con doble clic
+function makeEdit(el){
+  el.contentEditable='true';
+  el.focus();
+  // Seleccionar todo el texto
+  var range=document.createRange();
+  range.selectNodeContents(el);
+  var sel=window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  // Al perder foco, desactivar edición
+  el.addEventListener('blur',function handler(){
+    el.contentEditable='false';
+    el.removeEventListener('blur',handler);
+  });
+  // Enter confirma
+  el.addEventListener('keydown',function handler(e){
+    if(e.key==='Enter'){e.preventDefault();el.blur();}
+    el.removeEventListener('keydown',handler);
+  });
+}
+
+function upd(){
+  var muo=v('muo'),bsw=v('bsw'),Tf=v('T'),rhos=v('rhos'),dp_u=v('dp'),conc=v('conc');
+  var idp=v('idp'),lp=v('lp');
+  var idc=v('idc'),lc=v('lc');
+  var ids=v('ids'),ls=v('ls'),rb=v('rb');
+  var tp=v('tp'),fp=v('fp');
+
+  var muW=muWater(Tf),muM=muMix(muo,muW,bsw),mu_Pas=muM/1000,rhof=rhoFluid(bsw);
+  var lp_m=lp*0.3048,lc_m=lc*0.3048;
+
+  // Módulo 2
+  var vs_sn=vsCalc(dp_u*1e-6,rhos,rhof,mu_Pas);
+  var t_s=lp_m>0&&vs_sn>0?lp_m/vs_sn:Infinity;
+  var t_hr=t_s/3600,t_min=t_s/60;
+  document.getElementById('r-sfb-hr').textContent =isFinite(t_hr)?fmtBig(t_hr,1):'∞';
+  document.getElementById('r-sfb-min').textContent=isFinite(t_min)?fmtBig(t_min,0):'∞';
+  document.getElementById('r-sfb-hr-sub').textContent =isFinite(t_min)?'= '+fmtBig(t_min,0)+' min':'';
+  document.getElementById('r-sfb-min-sub').textContent=isFinite(t_hr)?'= '+fmtBig(t_hr,2)+' h':'';
+  var sfbAl=document.getElementById('r-sfb-alert');
+  if(lp===0){sfbAl.className='wb wa';sfbAl.innerHTML='<b>Longitud = 0 ft.</b> Ingrese la profundidad de la ESP o el nivel dinámico.';}
+  else if(!isFinite(t_min)||t_min<1){sfbAl.className='wb wr';sfbAl.innerHTML='<b>⚠ Crítico:</b> arena alcanza el intake en menos de 1 min. Sand Lift y check valve imprescindibles.';}
+  else if(t_min<60){sfbAl.className='wb wr';sfbAl.innerHTML='<b>⚠ Sandfallback alto:</b> caída completa en '+fmt(t_min,0)+' min. Ventana de rearranque muy ajustada.';}
+  else if(t_hr<24){sfbAl.className='wb wa';sfbAl.innerHTML='<b>Precaución:</b> caída completa en '+fmt(t_hr,1)+' h. Se recomienda Sand Lift.';}
+  else{sfbAl.className='wb wg';sfbAl.innerHTML='<b>✓ Condición favorable:</b> caída completa en '+fmt(t_hr,1)+' h. Alta viscosidad protege la ESP. Ventana operacional amplia.';}
+
+  // Módulo 3
+  var A_c=Math.PI/4*Math.pow(idc*0.0254,2);
+  var V_lt=A_c*lc_m*1000;
+  var A_s=Math.PI/4*Math.pow(ids*0.0254,2);
+  var V_s=A_s*ls*0.3048;
+  var tp_s=tp*3600,M_tot=conc*V_lt/1000;
+  var fdec_p=0,M_ef=0;
+  GRANOS.forEach(function(g){
+    var vs2=vsCalc(g.um*1e-6,rhos,rhof,mu_Pas);
+    var fdec=Math.min(1,vs2*tp_s/Math.max(lc_m,0.001));
+    M_ef+=fdec*(g.psd/100)*M_tot;
+    fdec_p+=fdec*(g.psd/100);
+  });
+  var V_ef=(M_ef/1000)/Math.max(rb,1);
+  var n_lleno=V_ef>0?V_s/V_ef:Infinity;
+  var d_paro=fp>0?30.4375/fp:Infinity;
+  var t_dias=isFinite(n_lleno)?n_lleno*d_paro:Infinity;
+  var t_meses=t_dias/30.4375;
+  document.getElementById('r-sp-mes').textContent=isFinite(t_meses)?fmtBig(t_meses,1):'∞';
+  document.getElementById('r-sp-dia').textContent=isFinite(t_dias)?fmtBig(t_dias,0):'∞';
+  document.getElementById('r-sp-mes-sub').textContent=isFinite(t_dias)?'= '+fmtBig(t_dias,0)+' días':'';
+  document.getElementById('r-sp-dia-sub').textContent=isFinite(t_meses)?'= '+fmtBig(t_meses,1)+' meses':'';
+  var spAl=document.getElementById('r-sp-alert');
+  if(fp===0||conc===0||tp===0){spAl.className='wb wa';spAl.innerHTML='<b>Defina paros, concentración y tiempo de paro</b> para calcular el llenado del sump.';}
+  else if(!isFinite(t_meses)||t_meses<1){spAl.className='wb wr';spAl.innerHTML='<b>⚠ Crítico:</b> sump se llena en menos de 1 mes ('+fmt(n_lleno,0)+' paros). Aumentar longitud del sump.';}
+  else if(t_meses<3){spAl.className='wb wr';spAl.innerHTML='<b>⚠ Crítico:</b> sump se llena en '+fmt(t_dias,0)+' días ('+fmt(n_lleno,0)+' paros). Revisar longitud del sump.';}
+  else if(t_meses<12){spAl.className='wb wa';spAl.innerHTML='<b>Precaución:</b> sump se llena en ~'+fmt(t_meses,1)+' meses ('+fmt(n_lleno,0)+' paros). Considerar aumentar longitud del sump.';}
+  else{spAl.className='wb wg';spAl.innerHTML='<b>✓ Sump adecuado:</b> f̄_dec='+fmt(fdec_p*100,1)+'% · aguanta <b>'+fmt(t_meses,1)+' meses</b> ('+fmt(n_lleno,0)+' paros).';}
+}
+
+// Exportar como HTML autónomo
+function getFullHTML(){
+  var styles=document.querySelector('style').outerHTML;
+  var body=document.body.innerHTML;
+  // Capturar valores actuales de inputs
+  var inputs=document.querySelectorAll('input.pval');
+  inputs.forEach(function(inp){
+    body=body.replace('id="'+inp.id+'"','id="'+inp.id+'" value="'+inp.value+'"');
+  });
+  return '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Sand Control Calculator</title>\n'+styles+'\n</head>\n<body>\n'+body+'\n</body>\n</html>';
+}
+
+function exportHTML(){
+  var html=getFullHTML();
+  var blob=new Blob([html],{type:'text/html'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='sand_control_calculator.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function copyHTML(){
+  var html=getFullHTML();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(html).then(function(){
+      var btn=document.querySelectorAll('.btn')[1];
+      var orig=btn.textContent;
+      btn.textContent='✓ Copiado';
+      setTimeout(function(){btn.textContent=orig;},2000);
+    });
+  } else {
+    var ta=document.createElement('textarea');
+    ta.value=html;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+}
+
+upd();
+</script>
+
+
+
+</body>
+</html>
