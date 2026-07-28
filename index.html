@@ -242,8 +242,8 @@ function upd(){
   var t_meses=t_dias/30.4375;
   document.getElementById('r-sp-mes').textContent=isFinite(t_meses)?fmtBig(t_meses,1):'∞';
   document.getElementById('r-sp-dia').textContent=isFinite(t_dias)?fmtBig(t_dias,0):'∞';
-  document.getElementById('r-sp-mes-sub').textContent=isFinite(t_dias)?'= '+fmtBig(t_dias,0)+' días':'';
-  document.getElementById('r-sp-dia-sub').textContent=isFinite(t_meses)?'= '+fmtBig(t_meses,1)+' meses':'';
+  document.getElementById('r-sp-mes-sub').textContent=isFinite(t_dias)?'= '+fmtBig(t_dias,0)+' days':'';
+  document.getElementById('r-sp-dia-sub').textContent=isFinite(t_meses)?'= '+fmtBig(t_meses,1)+' months':'';
  }
 function getFullHTML(){
   var html=document.documentElement.outerHTML;
